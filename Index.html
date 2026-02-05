@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClausuCheck - Analizador Legal IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <nav class="p-6 bg-white shadow-sm flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-blue-600">ClausuCheck</h1>
+    </nav>
+    <main class="max-w-4xl mx-auto mt-12 p-6">
+        <section class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold mb-4">No firmes nada sin analizarlo.</h2>
+            <p class="text-slate-600">Pega tu contrato abajo y nuestra IA buscará cláusulas abusivas.</p>
+        </section>
+        <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+            <textarea id="contractInput" class="w-full h-64 p-4 border rounded-xl mb-4 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pega el texto aquí..."></textarea>
+            <button onclick="alert('Conectando con el cerebro de IA...')" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg">Analizar Ahora</button>
+        </div>
+    </main>
+</body>
+</html>
