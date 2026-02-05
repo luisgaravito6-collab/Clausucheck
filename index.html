@@ -3,43 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClausuCheck - Analizador Legal IA</title>
+    <title>ClausuCheck | Inteligencia Legal</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .gradient-text { background: linear-gradient(90deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .loader { border-top-color: #2563eb; animation: spinner 0.6s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
-    <nav class="p-6 bg-white shadow-sm flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-blue-600 tracking-tight">ClausuCheck</h1>
-    </nav>
-    <main class="max-w-4xl mx-auto mt-12 p-6">
-        <section class="text-center mb-12">
-            <h2 class="text-4xl font-extrabold mb-4">No firmes nada sin analizarlo.</h2>
-            <p class="text-slate-600 text-lg">Nuestra IA busca riesgos ocultos en tus contratos en segundos.</p>
-        </section>
-        <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-            <textarea id="contractInput" class="w-full h-64 p-4 border border-slate-300 rounded-xl mb-4 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Pega aquí el texto del contrato..."></textarea>
-            <button onclick="analyzeContract()" id="btnAnalyze" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-all">Analizar Ahora Gratis</button>
-        </div>
-        
-        <div id="results" class="mt-8 hidden p-6 bg-white border-2 border-blue-100 rounded-2xl shadow-inner">
-            <h3 class="font-bold text-xl mb-4 text-blue-700">🔍 Reporte de Riesgos Encontrados:</h3>
-            <div id="analysisText" class="space-y-4 text-lg"></div>
-            
-            <div class="mt-8 p-6 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-xl text-white shadow-2xl">
-                <h4 class="text-2xl font-bold mb-2">🚀 ¿Quieres la solución legal detallada?</h4>
-                <p class="mb-4 text-blue-100 text-lg">Nuestra IA experta puede redactar un informe de defensa y sugerir cambios legales para protegerte.</p>
-                <div class="bg-white/10 p-5 rounded-lg mb-6 border border-white/20">
-                    <p class="font-bold mb-1 text-yellow-300">Paso 1: Pago vía Mercado Pago</p>
-                    <p class="text-sm opacity-90 mb-3 text-white">Envía tu pago a la cuenta:</p>
-                    <p class="font-mono font-bold text-xl tracking-wider text-white">722969028128731869</p>
-                    
-                    <hr class="my-4 border-white/20">
-                    
-                    <p class="font-bold mb-1 text-yellow-300">Paso 2: Confirmación</p>
-                    <p class="text-sm text-white">Envía captura de pantalla y tu texto por WhatsApp.</p>
+<body class="bg-[#f8fafc] text-slate-900 antialiased">
+
+    <nav class="sticky top-0 z-50 glass border-b border-slate-200 p-4">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+                    <i class="fas fa-shield-halved text-white"></i>
                 </div>
-                <a href="https://wa.me/525520864056?text=Hola!%20Acabo%20de%20hacer%20el%20pago%20en%20ClausuCheck.%20Aquí%20tengo%20mi%20comprobante%20y%20el%20contrato." target="_blank" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg text-lg">
-                    Solicitar Reporte Experto vía WhatsApp
-                </a>
+                <span class="text-xl font-extrabold tracking-tight">Clausu<span class="text-blue-600">Check</span></span>
+            </div>
+            <span class="text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full uppercase tracking-wider">IA v2.0 Live</span>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto mt-12 px-6 pb-24">
+        <header class="text-center mb-12">
+            <h2 class="text-5xl font-extrabold mb-4 tracking-tight leading-tight">
+                Protege tu firma con <br><span class="gradient-text">Inteligencia Artificial</span>
+            </h2>
+            <p class="text-slate-500 text-lg max-w-lg mx-auto">Análisis instantáneo de contratos para detectar cláusulas abusivas y riesgos legales ocultos.</p>
+        </header>
+
+        <div class="bg-white p-2 rounded-[2rem] shadow-2xl shadow-blue-100 border border-slate-100">
+            <textarea id="contractInput" 
+                class="w-full h-72 p-6 text-lg border-none rounded-[1.8rem] focus:ring-0 outline-none resize-none placeholder:text-slate-300" 
+                placeholder="Pega el texto de tu contrato aquí..."></textarea>
+            
+            <div class="p-2">
+                <button onclick="analyzeContract()" id="btnAnalyze" 
+                    class="w-full bg-slate-900 hover:bg-blue-600 text-white font-bold py-5 rounded-2xl shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 text-lg">
+                    <i class="fas fa-wand-magic-sparkles"></i> Analizar Contrato Gratis
+                </button>
+            </div>
+        </div>
+
+        <div id="loadingState" class="hidden mt-12 text-center">
+            <div class="loader w-12 h-12 border-4 border-slate-200 rounded-full mx-auto mb-4"></div>
+            <p class="text-slate-500 font-medium animate-pulse">Escaneando terminología legal...</p>
+        </div>
+
+        <div id="results" class="mt-12 hidden space-y-6">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-[1px] flex-1 bg-slate-200"></div>
+                <h3 class="font-bold text-slate-400 text-sm uppercase tracking-[0.2em]">Resultado del Escaneo</h3>
+                <div class="h-[1px] flex-1 bg-slate-200"></div>
+            </div>
+            
+            <div id="analysisText" class="space-y-4"></div>
+
+            <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden mt-12">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] -mr-32 -mt-32"></div>
+                
+                <div class="relative z-10 text-center">
+                    <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/10">
+                        <span class="w-2 h-2 bg-yellow-400 rounded-full animate-ping"></span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-yellow-400">Servicio VIP disponible</span>
+                    </div>
+                    
+                    <h4 class="text-3xl font-extrabold mb-4">¿Quieres el reporte completo?</h4>
+                    <p class="text-slate-400 text-lg mb-8 max-w-md mx-auto">Nuestra IA experta redactará un informe de defensa y sugerirá cambios legales para protegerte hoy mismo.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="copyAccount()" class="flex items-center justify-center gap-3 p-5 bg-white text-slate-900 rounded-2xl font-bold hover:bg-blue-50 transition-all shadow-lg active:scale-95">
+                            <i class="fas fa-wallet text-blue-600"></i> 
+                            <span id="copyLabel">Pagar con Mercado Pago</span>
+                        </button>
+
+                        <a href="https://wa.me/525520864056?text=Hola!%20Acabo%20de%20pagar%20ClausuCheck.%20Aquí%20tengo%20mi%20comprobante." 
+                           target="_blank" 
+                           class="flex items-center justify-center gap-3 p-5 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold transition-all shadow-lg active:scale-95">
+                            <i class="fab fa-whatsapp"></i> Enviar Comprobante
+                        </a>
+                    </div>
+                    <p class="mt-6 text-slate-500 text-xs">Atención inmediata • Reportes en menos de 15 min</p>
+                </div>
             </div>
         </div>
     </main>
@@ -48,29 +98,73 @@
         function analyzeContract() {
             const text = document.getElementById('contractInput').value;
             const btn = document.getElementById('btnAnalyze');
+            const loading = document.getElementById('loadingState');
             const results = document.getElementById('results');
             const analysisArea = document.getElementById('analysisText');
 
-            if(text.length < 20) { alert("Por favor, pega un texto más largo."); return; }
+            if(text.length < 20) {
+                alert("Por favor, introduce un texto más extenso para un análisis preciso.");
+                return;
+            }
 
-            btn.innerText = "IA procesando...";
-            btn.disabled = true;
+            // Animación de inicio
+            btn.classList.add('opacity-0', 'pointer-events-none');
+            loading.classList.remove('hidden');
+            results.classList.add('hidden');
 
             setTimeout(() => {
-                btn.innerText = "Analizar Ahora Gratis";
-                btn.disabled = false;
+                loading.classList.add('hidden');
+                btn.classList.remove('opacity-0', 'pointer-events-none');
                 results.classList.remove('hidden');
                 
                 let report = "";
                 const t = text.toLowerCase();
-                if(t.includes("renuncia") || t.includes("irrevocable")) report += "<div class='p-4 bg-red-50 border-l-4 border-red-500 rounded'><p class='font-bold text-red-800'>⚠️ ALERTA DE RENUNCIA DE DERECHOS</p><p class='text-red-700 text-sm'>Se detectaron términos donde podrías estar perdiendo protección legal.</p></div>";
-                if(t.includes("penalización") || t.includes("multa") || t.includes("pago")) report += "<div class='p-4 bg-orange-50 border-l-4 border-orange-500 rounded'><p class='font-bold text-orange-800'>🔸 RIESGO ECONÓMICO</p><p class='text-orange-700 text-sm'>El contrato menciona cargos o multas importantes.</p></div>";
                 
-                if(report === "") report = "<p class='text-green-600 font-bold'>✅ No se detectaron cláusulas críticas, pero se recomienda un análisis experto.</p>";
+                if(t.includes("renuncia") || t.includes("irrevocable")) {
+                    report += `
+                        <div class="bg-red-50 border border-red-100 p-6 rounded-[1.5rem] flex gap-4">
+                            <div class="text-red-500 text-2xl"><i class="fas fa-circle-exclamation"></i></div>
+                            <div>
+                                <p class="font-extrabold text-red-900">Alerta de Renuncia de Derechos</p>
+                                <p class="text-red-700 text-sm">Se han detectado términos que implican la pérdida de protecciones legales básicas.</p>
+                            </div>
+                        </div>`;
+                }
+                
+                if(t.includes("penalización") || t.includes("multa") || t.includes("interés")) {
+                    report += `
+                        <div class="bg-orange-50 border border-orange-100 p-6 rounded-[1.5rem] flex gap-4">
+                            <div class="text-orange-500 text-2xl"><i class="fas fa-triangle-exclamation"></i></div>
+                            <div>
+                                <p class="font-extrabold text-orange-900">Riesgo Financiero Detectado</p>
+                                <p class="text-orange-700 text-sm">El contrato incluye sanciones económicas o multas por incumplimiento.</p>
+                            </div>
+                        </div>`;
+                }
+                
+                if(report === "") {
+                    report = `
+                        <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-[1.5rem] flex gap-4">
+                            <div class="text-emerald-500 text-2xl"><i class="fas fa-circle-check"></i></div>
+                            <div>
+                                <p class="font-extrabold text-emerald-900">Sin riesgos críticos inmediatos</p>
+                                <p class="text-emerald-700 text-sm">No se encontraron patrones de abuso evidentes, pero se recomienda revisión experta.</p>
+                            </div>
+                        </div>`;
+                }
                 
                 analysisArea.innerHTML = report;
                 results.scrollIntoView({ behavior: 'smooth' });
-            }, 1200);
+            }, 2000);
+        }
+
+        function copyAccount() {
+            const accountNumber = "722969028128731869";
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                const label = document.getElementById('copyLabel');
+                label.innerText = "✅ ¡Cuenta Copiada!";
+                setTimeout(() => { label.innerText = "Pagar con Mercado Pago"; }, 3000);
+            });
         }
     </script>
 </body>
