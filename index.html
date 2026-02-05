@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,10 +26,6 @@
                 </div>
                 <span class="text-2xl font-extrabold tracking-tighter italic">ClausuCheck</span>
             </div>
-            <div class="hidden sm:flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Protocolo Activo</span>
-            </div>
         </div>
     </nav>
 
@@ -39,19 +34,17 @@
             <h2 class="text-5xl font-extrabold mb-4 tracking-tight leading-tight">
                 Protege tu firma con <br><span class="gradient-text text-6xl">ClausuCheck</span>
             </h2>
-            <p class="text-slate-500 text-lg max-w-lg mx-auto font-medium">
-                Detección automatizada de riesgos y cláusulas abusivas en documentos legales.
-            </p>
+            <p class="text-slate-500 text-lg max-w-lg mx-auto font-medium">Detección automatizada de riesgos y cláusulas abusivas.</p>
         </header>
 
-        <div class="bg-white p-3 rounded-[2.5rem] shadow-2xl shadow-blue-100 border border-slate-100 transition-all hover:shadow-blue-200">
+        <div class="bg-white p-3 rounded-[2.5rem] shadow-2xl border border-slate-100">
             <textarea id="contractInput" 
                 class="w-full h-80 p-8 text-lg border-none rounded-[2.2rem] focus:ring-0 outline-none resize-none placeholder:text-slate-300" 
-                placeholder="Pega aquí el contenido del contrato para iniciar el escaneo de ClausuCheck..."></textarea>
+                placeholder="Pega aquí el contenido del contrato para iniciar el escaneo..."></textarea>
             
             <div class="p-2">
                 <button onclick="analyzeContract()" id="btnAnalyze" 
-                    class="w-full bg-blue-600 hover:bg-slate-900 text-white font-bold py-5 rounded-2xl shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 text-lg tracking-wide group">
+                    class="w-full bg-blue-600 hover:bg-slate-900 text-white font-bold py-5 rounded-2xl shadow-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg group">
                     <span>Ejecutar Análisis de Seguridad</span>
                     <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </button>
@@ -60,19 +53,10 @@
 
         <div id="loadingState" class="hidden mt-16 text-center">
             <div class="loader w-14 h-14 border-4 border-slate-200 rounded-full mx-auto mb-6"></div>
-            <div class="space-y-2">
-                <p class="text-blue-600 font-black uppercase tracking-[0.3em] text-[10px]">Procesando Algoritmos</p>
-                <p class="text-slate-400 text-sm animate-pulse">Cruzando datos con normativa legal vigente...</p>
-            </div>
+            <p class="text-blue-600 font-black uppercase tracking-[0.3em] text-[10px]">Procesando Algoritmos...</p>
         </div>
 
         <div id="results" class="mt-16 hidden space-y-8 animate-in fade-in duration-700">
-            <div class="flex items-center gap-4 text-slate-400">
-                <div class="h-[1px] flex-1 bg-slate-200"></div>
-                <span class="text-[10px] font-black uppercase tracking-[0.4em]">Reporte de Diagnóstico</span>
-                <div class="h-[1px] flex-1 bg-slate-200"></div>
-            </div>
-            
             <div id="analysisText" class="grid gap-4"></div>
 
             <div class="bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden mt-16 border border-blue-500/20">
@@ -80,30 +64,35 @@
                 
                 <div class="relative z-10 text-center">
                     <h4 class="text-3xl font-extrabold mb-4">¿Necesitas un Informe de Defensa?</h4>
+                    
+                    <div class="inline-block bg-yellow-400 text-slate-900 px-8 py-3 rounded-full font-black text-3xl mb-8 shadow-xl transform -rotate-2">
+                        OFERTA: $49 MXN
+                    </div>
+
                     <p class="text-slate-400 text-lg mb-10 max-w-md mx-auto leading-relaxed">
-                        Nuestros expertos procesarán tu documento para entregarte argumentos legales de negociación y soluciones definitivas.
+                        Nuestros expertos de <b>ClausuCheck</b> redactarán tus argumentos de negociación y soluciones legales.
                     </p>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <button onclick="copyAccount()" class="flex flex-col items-center justify-center gap-2 p-6 bg-white text-slate-900 rounded-[1.5rem] font-bold hover:bg-blue-50 transition-all shadow-lg active:scale-95 group">
+                        <button onclick="copyAccount()" class="flex flex-col items-center justify-center gap-2 p-6 bg-white text-slate-900 rounded-[1.5rem] font-bold hover:bg-yellow-50 transition-all shadow-lg active:scale-95 group border-2 border-yellow-400">
                             <div class="flex items-center gap-3">
-                                <i class="fas fa-wallet text-blue-600 text-xl"></i> 
-                                <span id="copyLabel" class="text-lg">Pago vía Mercado Pago</span>
+                                <i class="fas fa-wallet text-blue-600 text-2xl"></i> 
+                                <span id="copyLabel" class="text-xl">Copiar CLABE</span>
                             </div>
-                            <p class="text-[10px] text-slate-400 font-normal uppercase tracking-wider italic">Toca para copiar CLABE</p>
+                            <p class="text-[11px] text-slate-500 font-bold uppercase tracking-wider italic bg-yellow-200 px-3 py-1 rounded-full">Pago vía Mercado Pago</p>
                         </button>
 
-                        <a href="https://wa.me/525520864056?text=ClausuCheck%20Premium:%20Solicito%20mi%20reporte%20experto.%20Ya%20tengo%20mi%20comprobante." 
+                        <a href="https://wa.me/525520864056?text=ClausuCheck%20Premium:%20Deseo%20el%20reporte%20de%20$49%20pesos.%20Adjunto%20comprobante." 
                            target="_blank" 
-                           class="flex flex-col items-center justify-center gap-2 p-6 bg-green-500 hover:bg-green-600 text-white rounded-[1.5rem] font-bold transition-all shadow-lg active:scale-95">
+                           class="flex flex-col items-center justify-center gap-2 p-6 bg-green-500 hover:bg-green-600 text-white rounded-[1.5rem] font-bold transition-all shadow-lg active:scale-95 border-2 border-yellow-400">
                             <div class="flex items-center gap-3">
-                                <i class="fab fa-whatsapp text-2xl"></i> 
-                                <span class="text-lg">Validar Operación</span>
+                                <i class="fab fa-whatsapp text-3xl"></i> 
+                                <span class="text-xl">Enviar Ticket</span>
                             </div>
-                            <p class="text-[10px] text-white/70 font-normal uppercase tracking-wider italic">Soporte Técnico Directo</p>
+                            <p class="text-[11px] text-white/90 font-bold uppercase tracking-wider italic bg-yellow-400/20 px-3 py-1 rounded-full">Recibe tu reporte aquí</p>
                         </a>
                     </div>
-                    <p class="mt-8 text-slate-500 text-[10px] uppercase tracking-widest font-bold">Respuesta estimada: Menos de 15 minutos</p>
+                    <p class="mt-8 text-slate-500 text-[10px] uppercase tracking-[0.2em] font-bold">Entrega garantizada en menos de 15 minutos</p>
                 </div>
             </div>
         </div>
@@ -118,11 +107,10 @@
             const analysisArea = document.getElementById('analysisText');
 
             if(text.length < 20) {
-                alert("Protocolo ClausuCheck: Se requiere una extensión mínima de texto para el escaneo.");
+                alert("Por favor, ingresa un texto más largo para analizar.");
                 return;
             }
 
-            // Efecto de carga
             btn.style.display = 'none';
             loading.classList.remove('hidden');
             results.classList.add('hidden');
@@ -135,55 +123,41 @@
                 let report = "";
                 const t = text.toLowerCase();
                 
-                if(t.includes("renuncia") || t.includes("irrevocable") || t.includes("desisto")) {
+                if(t.includes("renuncia") || t.includes("irrevocable")) {
                     report += `
-                        <div class="bg-red-50 border-l-8 border-red-500 p-8 rounded-3xl shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <i class="fas fa-shield-virus text-red-600 text-xl"></i>
-                                <p class="font-extrabold text-red-900 tracking-tight text-xl uppercase italic">Vulnerabilidad de Derechos</p>
-                            </div>
-                            <p class="text-red-700 font-medium leading-relaxed">ClausuCheck detectó cláusulas de renuncia que comprometen su seguridad jurídica.</p>
+                        <div class="bg-red-50 border-l-8 border-red-500 p-8 rounded-3xl">
+                            <p class="font-extrabold text-red-900 text-xl uppercase italic">Vulnerabilidad de Derechos</p>
+                            <p class="text-red-700 font-medium">ClausuCheck detectó cláusulas de renuncia que comprometen su seguridad.</p>
                         </div>`;
                 }
                 
-                if(t.includes("penalización") || t.includes("multa") || t.includes("cobro") || t.includes("monto")) {
+                if(t.includes("penalización") || t.includes("multa") || t.includes("interés")) {
                     report += `
-                        <div class="bg-amber-50 border-l-8 border-amber-500 p-8 rounded-3xl shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <i class="fas fa-chart-line-down text-amber-600 text-xl"></i>
-                                <p class="font-extrabold text-amber-900 tracking-tight text-xl uppercase italic">Riesgo Patrimonial</p>
-                            </div>
-                            <p class="text-amber-700 font-medium leading-relaxed">Se identificaron sanciones económicas o multas elevadas en el cuerpo del documento.</p>
+                        <div class="bg-amber-50 border-l-8 border-amber-500 p-8 rounded-3xl">
+                            <p class="font-extrabold text-amber-900 text-xl uppercase italic">Riesgo Financiero</p>
+                            <p class="text-amber-700 font-medium">Se identificaron sanciones económicas importantes en el documento.</p>
                         </div>`;
                 }
                 
                 if(report === "") {
                     report = `
-                        <div class="bg-blue-50 border-l-8 border-blue-500 p-8 rounded-3xl shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <i class="fas fa-check-double text-blue-600 text-xl"></i>
-                                <p class="font-extrabold text-blue-900 tracking-tight text-xl uppercase italic">Análisis Estándar Limpio</p>
-                            </div>
-                            <p class="text-blue-700 font-medium leading-relaxed text-sm">No se hallaron riesgos de impacto crítico inmediato, pero se sugiere validación experta para mayor seguridad.</p>
+                        <div class="bg-blue-50 border-l-8 border-blue-500 p-8 rounded-3xl">
+                            <p class="font-extrabold text-blue-900 text-xl uppercase italic">Escaneo Inicial Completado</p>
+                            <p class="text-blue-700 font-medium text-sm">No se hallaron riesgos críticos evidentes, pero se sugiere el informe detallado.</p>
                         </div>`;
                 }
                 
                 analysisArea.innerHTML = report;
                 window.scrollTo({ top: results.offsetTop - 100, behavior: 'smooth' });
-            }, 3000);
+            }, 2500);
         }
 
         function copyAccount() {
             const accountNumber = "722969028128731869";
             navigator.clipboard.writeText(accountNumber).then(() => {
                 const label = document.getElementById('copyLabel');
-                const originalText = label.innerText;
-                label.innerText = "✅ CUENTA COPIADA";
-                label.classList.add('text-green-600');
-                setTimeout(() => { 
-                    label.innerText = originalText;
-                    label.classList.remove('text-green-600');
-                }, 3000);
+                label.innerText = "✅ COPIADA";
+                setTimeout(() => { label.innerText = "Copiar CLABE"; }, 3000);
             });
         }
     </script>
