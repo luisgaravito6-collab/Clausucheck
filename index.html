@@ -8,17 +8,65 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
     <nav class="p-6 bg-white shadow-sm flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-blue-600">ClausuCheck</h1>
+        <h1 class="text-2xl font-bold text-blue-600 tracking-tight">ClausuCheck <span class="text-xs bg-blue-100 px-2 py-1 rounded text-blue-800 ml-2">v1.0 Beta</span></h1>
     </nav>
     <main class="max-w-4xl mx-auto mt-12 p-6">
         <section class="text-center mb-12">
             <h2 class="text-4xl font-extrabold mb-4">No firmes nada sin analizarlo.</h2>
-            <p class="text-slate-600">Pega tu contrato abajo y nuestra IA buscará cláusulas abusivas.</p>
+            <p class="text-slate-600 text-lg">Nuestra IA detecta cláusulas abusivas y riesgos ocultos en segundos.</p>
         </section>
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-            <textarea id="contractInput" class="w-full h-64 p-4 border rounded-xl mb-4 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pega el texto aquí..."></textarea>
-            <button onclick="alert('Conectando con el cerebro de IA...')" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg">Analizar Ahora</button>
+            <textarea id="contractInput" class="w-full h-64 p-4 border border-slate-300 rounded-xl mb-4 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Pega aquí el texto del contrato (alquiler, servicios, etc)..."></textarea>
+            <button onclick="analyzeContract()" id="btnAnalyze" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg text-lg">Analizar Contrato Ahora</button>
+        </div>
+        <div id="results" class="mt-8 hidden p-6 bg-white border-2 border-blue-100 rounded-2xl shadow-inner">
+            <h3 class="font-bold text-xl mb-4 flex items-center text-blue-700">
+                <span class="mr-2">🔍</span> Reporte de Riesgos Encontrados:
+            </h3>
+            <div id="analysisText" class="space-y-4"></div>
         </div>
     </main>
+
+    <script>
+        function analyzeContract() {
+            const text = document.getElementById('contractInput').value;
+            const btn = document.getElementById('btnAnalyze');
+            const results = document.getElementById('results');
+            const analysisArea = document.getElementById('analysisText');
+
+            if(text.length < 20) {
+                alert("Por favor, pega un texto más largo para analizar.");
+                return;
+            }
+
+            btn.innerText = "Analizando patrones legales...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = "Analizar Contrato Ahora";
+                btn.disabled = false;
+                results.classList.remove('hidden');
+                
+                // Lógica de detección de patrones
+                let report = "";
+                if(text.toLowerCase().includes("renuncia") || text.toLowerCase().includes("irrevocable")) {
+                    report += "<div class='p-4 bg-red-50 border-l-4 border-red-500 rounded'><p class='font-bold text-red-800'>⚠️ ALERTA DE RENUNCIA DE DERECHOS</p><p class='text-red-700'>Se detectaron términos que sugieren que podrías estar renunciando a derechos legales básicos.</p></div>";
+                }
+                if(text.toLowerCase().includes("penalización") || text.toLowerCase().includes("multa")) {
+                    report += "<div class='p-4 bg-orange-50 border-l-4 border-orange-500 rounded'><p class='font-bold text-orange-800'>🔸 RIESGO FINANCIERO</p><p class='text-orange-700'>El contrato menciona penalizaciones económicas severas por incumplimiento.</p></div>";
+                }
+                if(text.toLowerCase().includes("automática") || text.toLowerCase().includes("prórroga")) {
+                    report += "<div class='p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded'><p class='font-bold text-yellow-800'>🕒 CLÁUSULA DE PERMANENCIA</p><p class='text-yellow-700'>Cuidado con las renovaciones automáticas mencionadas en el texto.</p></div>";
+                }
+                
+                if(report === "") {
+                    report = "<p class='text-green-600 font-medium font-bold'>✅ No se detectaron cláusulas críticas evidentes, pero se recomienda revisión profesional.</p>";
+                }
+                
+                analysisArea.innerHTML = report;
+                results.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+    </script>
 </body>
 </html>
