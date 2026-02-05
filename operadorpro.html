@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OperadorPro | Red Logística</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .truck-gradient { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .online-dot { width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; display: inline-block; margin-left: 6px; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    </style>
+</head>
+<body onload="revisarAcceso()">
+
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 p-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 text-orange-600">
+                <i class="fas fa-truck-fast text-2xl"></i>
+                <span class="text-2xl font-black italic">OperadorPro</span>
+                <span class="online-dot"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto mt-8 px-6 pb-20">
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100 mb-10">
+            <h2 class="text-2xl font-extrabold mb-4 italic">Registro de Operadores 🚛</h2>
+            <div class="space-y-4">
+                <input type="text" placeholder="Nombre completo" class="w-full p-4 bg-slate-50 rounded-2xl outline-none border border-transparent focus:border-orange-500">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="Licencia" class="p-4 bg-slate-50 rounded-2xl outline-none">
+                    <input type="text" placeholder="Años Exp." class="p-4 bg-slate-50 rounded-2xl outline-none">
+                </div>
+                <input type="tel" placeholder="WhatsApp (10 dígitos)" class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-orange-100 font-bold">
+                <button onclick="alert('¡Registrado!')" class="w-full truck-gradient text-white font-black py-5 rounded-2xl shadow-lg uppercase tracking-widest">Publicar mi Perfil</button>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-black mb-6 italic uppercase tracking-tighter text-slate-700">Canasta de Talentos Activa</h3>
+        <div id="listaOperadores" class="space-y-4">
+            <div class="bg-white p-5 rounded-3xl border-l-8 border-l-green-500 shadow-sm flex justify-between items-center">
+                <div>
+                    <p class="font-bold text-slate-800">Marco Antonio L.</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase">Lic. Federal E • 15 años exp.</p>
+                </div>
+                <a href="tel:5520864056" class="bg-slate-900 text-white px-4 py-2 rounded-xl font-black text-[10px]">CONTACTAR</a>
+            </div>
+
+            <div id="contenidoPremium" class="hidden space-y-4">
+                <div class="bg-white p-5 rounded-3xl border-l-8 border-l-orange-500 shadow-sm flex justify-between items-center">
+                    <div><p class="font-bold">Héctor Saldivar</p><p class="text-[10px] text-slate-400 uppercase">Doble Remolque • R-Control</p></div>
+                    <button class="bg-orange-600 text-white px-4 py-2 rounded-xl font-black text-[10px]">WHATSAPP</button>
+                </div>
+            </div>
+
+            <div id="vistaBloqueada" class="bg-slate-200/50 p-6 rounded-3xl border border-dashed border-slate-300 text-center">
+                <p class="text-slate-400 font-bold italic text-sm">Hay 38 operadores más bloqueados...</p>
+            </div>
+        </div>
+
+        <div id="pagoCuadro" class="bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden mt-12 border-2 border-orange-500">
+            <div class="relative z-10 text-center">
+                <h4 class="text-2xl font-black mb-4 italic italic">Acceso Total Reclutador</h4>
+                <div class="inline-block bg-yellow-400 text-slate-900 px-8 py-3 rounded-full font-black text-2xl mb-8 shadow-xl transform -rotate-2">$199 MXN</div>
+                
+                <div class="grid gap-3 mb-8 text-left">
+                    <button onclick="copyCLABE()" class="bg-white text-slate-900 p-5 rounded-2xl font-bold flex justify-between items-center shadow-lg">
+                        <span id="txtClabe" class="text-sm">Copiar CLABE (Mercado Pago)</span>
+                        <i class="fas fa-copy text-orange-500"></i>
+                    </button>
+                    <a href="https://wa.me/525520864056?text=OperadorPro:%20Envío%20comprobante" class="bg-green-500 text-white p-5 rounded-2xl font-bold flex justify-center items-center gap-2 shadow-lg uppercase text-xs">
+                        <i class="fab fa-whatsapp text-xl"></i> Validar Ticket
+                    </a>
+                </div>
+
+                <div class="border-t border-slate-700 pt-8">
+                    <p class="text-[10px] text-slate-500 mb-4 uppercase font-black tracking-widest text-center">Activar con código de acceso</p>
+                    <div class="flex gap-2">
+                        <input type="text" id="codigoAcceso" placeholder="CODIGO-PRO" class="flex-1 bg-slate-900 p-4 rounded-xl outline-none text-yellow-400 font-black text-center border border-slate-600">
+                        <button onclick="verificarCodigo()" class="bg-yellow-400 text-slate-900 px-6 rounded-xl font-black uppercase text-xs">Entrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function copyCLABE() {
+            navigator.clipboard.writeText("722969028128731869").then(() => {
+                document.getElementById('txtClabe').innerText = "¡COPIADO!";
+                setTimeout(() => document.getElementById('txtClabe').innerText = "Copiar CLABE (Mercado Pago)", 2000);
+            });
+        }
+        function verificarCodigo() {
+            if(document.getElementById('codigoAcceso').value.toUpperCase() === "PRO2026") {
+                localStorage.setItem('acceso_op', new Date().getTime());
+                location.reload();
+            } else { alert("Código incorrecto"); }
+        }
+        function revisarAcceso() {
+            const fecha = localStorage.getItem('acceso_op');
+            if(fecha && (new Date().getTime() - fecha) / (1000*60*60*24) < 14) {
+                document.getElementById('contenidoPremium').classList.remove('hidden');
+                document.getElementById('vistaBloqueada').classList.add('hidden');
+                document.getElementById('pagoCuadro').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
