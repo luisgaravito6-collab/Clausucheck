@@ -8,22 +8,39 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
     <nav class="p-6 bg-white shadow-sm flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-blue-600 tracking-tight">ClausuCheck <span class="text-xs bg-blue-100 px-2 py-1 rounded text-blue-800 ml-2">v1.0 Beta</span></h1>
+        <h1 class="text-2xl font-bold text-blue-600 tracking-tight">ClausuCheck</h1>
     </nav>
     <main class="max-w-4xl mx-auto mt-12 p-6">
         <section class="text-center mb-12">
             <h2 class="text-4xl font-extrabold mb-4">No firmes nada sin analizarlo.</h2>
-            <p class="text-slate-600 text-lg">Nuestra IA detecta cláusulas abusivas y riesgos ocultos en segundos.</p>
+            <p class="text-slate-600 text-lg">Nuestra IA busca riesgos ocultos en tus contratos en segundos.</p>
         </section>
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
-            <textarea id="contractInput" class="w-full h-64 p-4 border border-slate-300 rounded-xl mb-4 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Pega aquí el texto del contrato (alquiler, servicios, etc)..."></textarea>
-            <button onclick="analyzeContract()" id="btnAnalyze" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg text-lg">Analizar Contrato Ahora</button>
+            <textarea id="contractInput" class="w-full h-64 p-4 border border-slate-300 rounded-xl mb-4 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Pega aquí el texto del contrato..."></textarea>
+            <button onclick="analyzeContract()" id="btnAnalyze" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-all">Analizar Ahora Gratis</button>
         </div>
+        
         <div id="results" class="mt-8 hidden p-6 bg-white border-2 border-blue-100 rounded-2xl shadow-inner">
-            <h3 class="font-bold text-xl mb-4 flex items-center text-blue-700">
-                <span class="mr-2">🔍</span> Reporte de Riesgos Encontrados:
-            </h3>
-            <div id="analysisText" class="space-y-4"></div>
+            <h3 class="font-bold text-xl mb-4 text-blue-700">🔍 Reporte de Riesgos Encontrados:</h3>
+            <div id="analysisText" class="space-y-4 text-lg"></div>
+            
+            <div class="mt-8 p-6 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-xl text-white shadow-2xl">
+                <h4 class="text-2xl font-bold mb-2">🚀 ¿Quieres la solución legal detallada?</h4>
+                <p class="mb-4 text-blue-100 text-lg">Nuestra IA experta puede redactar un informe de defensa y sugerir cambios legales para protegerte.</p>
+                <div class="bg-white/10 p-5 rounded-lg mb-6 border border-white/20">
+                    <p class="font-bold mb-1 text-yellow-300">Paso 1: Pago vía Mercado Pago</p>
+                    <p class="text-sm opacity-90 mb-3 text-white">Envía tu pago a la cuenta:</p>
+                    <p class="font-mono font-bold text-xl tracking-wider text-white">722969028128731869</p>
+                    
+                    <hr class="my-4 border-white/20">
+                    
+                    <p class="font-bold mb-1 text-yellow-300">Paso 2: Confirmación</p>
+                    <p class="text-sm text-white">Envía captura de pantalla y tu texto por WhatsApp.</p>
+                </div>
+                <a href="https://wa.me/525520864056?text=Hola!%20Acabo%20de%20hacer%20el%20pago%20en%20ClausuCheck.%20Aquí%20tengo%20mi%20comprobante%20y%20el%20contrato." target="_blank" class="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg text-lg">
+                    Solicitar Reporte Experto vía WhatsApp
+                </a>
+            </div>
         </div>
     </main>
 
@@ -34,38 +51,26 @@
             const results = document.getElementById('results');
             const analysisArea = document.getElementById('analysisText');
 
-            if(text.length < 20) {
-                alert("Por favor, pega un texto más largo para analizar.");
-                return;
-            }
+            if(text.length < 20) { alert("Por favor, pega un texto más largo."); return; }
 
-            btn.innerText = "Analizando patrones legales...";
+            btn.innerText = "IA procesando...";
             btn.disabled = true;
 
             setTimeout(() => {
-                btn.innerText = "Analizar Contrato Ahora";
+                btn.innerText = "Analizar Ahora Gratis";
                 btn.disabled = false;
                 results.classList.remove('hidden');
                 
-                // Lógica de detección de patrones
                 let report = "";
-                if(text.toLowerCase().includes("renuncia") || text.toLowerCase().includes("irrevocable")) {
-                    report += "<div class='p-4 bg-red-50 border-l-4 border-red-500 rounded'><p class='font-bold text-red-800'>⚠️ ALERTA DE RENUNCIA DE DERECHOS</p><p class='text-red-700'>Se detectaron términos que sugieren que podrías estar renunciando a derechos legales básicos.</p></div>";
-                }
-                if(text.toLowerCase().includes("penalización") || text.toLowerCase().includes("multa")) {
-                    report += "<div class='p-4 bg-orange-50 border-l-4 border-orange-500 rounded'><p class='font-bold text-orange-800'>🔸 RIESGO FINANCIERO</p><p class='text-orange-700'>El contrato menciona penalizaciones económicas severas por incumplimiento.</p></div>";
-                }
-                if(text.toLowerCase().includes("automática") || text.toLowerCase().includes("prórroga")) {
-                    report += "<div class='p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded'><p class='font-bold text-yellow-800'>🕒 CLÁUSULA DE PERMANENCIA</p><p class='text-yellow-700'>Cuidado con las renovaciones automáticas mencionadas en el texto.</p></div>";
-                }
+                const t = text.toLowerCase();
+                if(t.includes("renuncia") || t.includes("irrevocable")) report += "<div class='p-4 bg-red-50 border-l-4 border-red-500 rounded'><p class='font-bold text-red-800'>⚠️ ALERTA DE RENUNCIA DE DERECHOS</p><p class='text-red-700 text-sm'>Se detectaron términos donde podrías estar perdiendo protección legal.</p></div>";
+                if(t.includes("penalización") || t.includes("multa") || t.includes("pago")) report += "<div class='p-4 bg-orange-50 border-l-4 border-orange-500 rounded'><p class='font-bold text-orange-800'>🔸 RIESGO ECONÓMICO</p><p class='text-orange-700 text-sm'>El contrato menciona cargos o multas importantes.</p></div>";
                 
-                if(report === "") {
-                    report = "<p class='text-green-600 font-medium font-bold'>✅ No se detectaron cláusulas críticas evidentes, pero se recomienda revisión profesional.</p>";
-                }
+                if(report === "") report = "<p class='text-green-600 font-bold'>✅ No se detectaron cláusulas críticas, pero se recomienda un análisis experto.</p>";
                 
                 analysisArea.innerHTML = report;
                 results.scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
+            }, 1200);
         }
     </script>
 </body>
